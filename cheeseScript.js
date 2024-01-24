@@ -294,6 +294,9 @@ function imageBounce() {
         document.getElementById("cheeseImage").style.animation = "onClickBounceBack 0.25s 1"
     },50)
 }
+function gunBounce() {
+    document.getElementById("gunImage").style.animation = "onClickGunBounce 0.25s 1"
+}
 function soundBox() {
     soundBoxItem.classList.remove("sound-box")
     soundBoxItem.classList.add("sound-box-visible")

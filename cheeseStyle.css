@@ -10,6 +10,10 @@
   to {width: 256px;
       height: 256px;}
 }
+@keyframes onClickGunBounce {
+  from {transform: rotate(0turn);}
+  to {transform: rotate(0.25turn);}
+}
 .center {
     text-align: center;
   }
