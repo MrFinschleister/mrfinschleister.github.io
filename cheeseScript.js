@@ -23,8 +23,8 @@ let cheeseData = {
     goldCheeseChance: 1,
     specialUpgradeCost: 5,
     specialUpgradeAmount: 0,
-    regularAutoClickerCostOne: 1000,
-    goldAutoClickerCostOne: 50,
+    regularAutoClickerCostOne: 150,
+    goldAutoClickerCostOne: 10,
     autoClickerActiveOne: 0,
     autoClickerRefresh: 50,
     critStrike: 0,
@@ -239,7 +239,7 @@ function pictureAchievement() {
         drawElementsFromCheeseData()
     }
 }
-function cheesyFunction() {
+function cheesyFunction(x) {
     const div = document.createElement('wrap')
     const cheese = document.createElement('img')
     let math = Math.floor(Math.random() * 100 - cheeseData.goldCheeseChance)
@@ -249,15 +249,15 @@ function cheesyFunction() {
         cheeseData.critStrike = 1
     }
     if (math <= 1) {
-        cheeseData.goldenCounter += cheeseData.goldCheeseAddition
-        cheeseData.regularCounter += cheeseData.cheeseAddition
+        cheeseData.goldenCounter += cheeseData.goldCheeseAddition * x
+        cheeseData.regularCounter += cheeseData.cheeseAddition * x
         cheese.src = cheeseData.goldCheese
         if (cheeseData.critStrike === 1) {
             cheeseData.cheeseAddition /= 100
             cheeseData.critStrike -= 1
         }
     } else {
-        cheeseData.regularCounter += cheeseData.cheeseAddition
+        cheeseData.regularCounter += cheeseData.cheeseAddition * x
         cheese.src = cheeseData.imageSrc
         if (cheeseData.critStrike === 1) {
             cheeseData.cheeseAddition /= 100
@@ -284,7 +284,7 @@ function autoIntervalOne() {
     setInterval(function() {
         cheeseData.tickCount += 10
         if (cheeseData.autoClickerActiveOne === 1 && cheeseData.tickCount % 500 === 0){
-            cheesyFunction()
+            cheesyFunction(1)
         }
         if (cheeseData.tickCount % 1000 === 0 && cheeseData.cpsCheck === 0) {
             cheeseData.cpsStart = cheeseData.regularCounter
