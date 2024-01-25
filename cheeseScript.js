@@ -40,6 +40,7 @@ let cheeseData = {
     cheeseImageAchievement: 0,
     achievementCheese: 0,
     clickAudio: 'cheeseMedia/audio/cheeseClickedSFX(click).mp3',
+    gun: 0,
 }
 let autoCount = 0
 function dataSave() {
@@ -70,6 +71,11 @@ function dataLoad() {
         cheeseData.imageSrc = 'cheeseMedia/cheeseCakeFruit.jpeg'
         cheeseData.imageSrc = 'cheeseMedia/cheeseCakeChocolateMarble.jpeg'
         document.getElementById("headerImage").innerHTML = imageSix
+    }
+    if (cheeseData.gun = 1) {
+        document.getElementById("gunAppear").classList.add("sound-box")
+        document.getElementById("gunBox").classList.remove("sound-box")
+        document.getElementById("gunBox").classList.add("sound-box-visible")
     }
     drawElementsFromCheeseData()
     loadInterval()
@@ -234,8 +240,6 @@ function pictureAchievement() {
     }
 }
 function cheesyFunction() {
-    let cheeseAudio = new Audio(cheeseData.clickAudio)
-    cheeseAudio.play()
     const div = document.createElement('wrap')
     const cheese = document.createElement('img')
     let math = Math.floor(Math.random() * 100 - cheeseData.goldCheeseChance)
@@ -289,13 +293,21 @@ function autoIntervalOne() {
     },10)
 }
 function imageBounce() {
+    let cheeseAudio = new Audio(cheeseData.clickAudio)
+    cheeseAudio.play()
     document.getElementById("cheeseImage").style.animation = "onClickBounce 0.25s 1"
     setTimeout(function(){
         document.getElementById("cheeseImage").style.animation = "onClickBounceBack 0.25s 1"
     },50)
 }
 function gunBounce() {
-    document.getElementById("gunImage").style.animation = "onClickGunBounce 0.25s 1"
+    let gunAudio = new Audio("cheeseMedia/audio/gun.mp3")
+    gunAudio.play()
+    document.getElementById("gunImage").style.animation = "onClickGunBounce 0.5s 1"
+    setTimeout(function(){
+        document.getElementById("gunImage").style.animation = "oncClickGunBounceBack 0.25s 1"
+        imageBounce()
+    },75)
 }
 function soundBox() {
     soundBoxItem.classList.remove("sound-box")
@@ -337,4 +349,15 @@ function audioChange(x) {
         "cheeseMedia/audio/cheeseClickedSFX(yoda).mp3",
     ]
     cheeseData.clickAudio = audioFile[x]
+}
+function gunAppear() {
+    if (cheeseData.goldenCounter >= 5000) {
+        cheeseData.gun = 1;
+        cheeseData.goldenCounter -= 5000
+        document.getElementById("gunAppear").classList.add("sound-box")
+        document.getElementById("gunBox").classList.remove("sound-box")
+        document.getElementById("gunBox").classList.add("sound-box-visible")
+    } else {
+        return
+    }
 }
