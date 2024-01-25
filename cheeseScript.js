@@ -72,7 +72,7 @@ function dataLoad() {
         cheeseData.imageSrc = 'cheeseMedia/cheeseCakeChocolateMarble.jpeg'
         document.getElementById("headerImage").innerHTML = imageSix
     }
-    if (cheeseData.gun = 1) {
+    if (cheeseData.gun === 1) {
         document.getElementById("gunAppear").classList.add("sound-box")
         document.getElementById("gunBox").classList.remove("sound-box")
         document.getElementById("gunBox").classList.add("sound-box-visible")
