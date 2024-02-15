@@ -283,7 +283,7 @@ function cheesyFunction(x) {
 }
 function dropDown(){
     document.getElementById("dropMenu").innerHTML = 
-    "<div style='color:white; display:inline; width:1000em'><a href='notcheese.html'>| not cheese </a><a href='minecraftCheese.html'>| blocky cheese </a><a href='meltyCheese.html'>| dont click </a><a href='minigame.html'>| Cheese Runner |</a></div>"
+    "<div style='color:white; display:inline; width:1000em'><a href='notcheese.html'>| not cheese </a><a href='minecraftCheese.html'>| blocky cheese </a><a href='meltyCheese.html'>| dont click </a><a href='minigame.html'>| Button Game |</a></div>"
     document.getElementById("dropButton").innerHTML = "<p onclick='dropUp()' style='font-weight:bolder;'> <</p>"
 }
 function dropUp(){
