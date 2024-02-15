@@ -18,6 +18,14 @@
   from {transform: rotate(0turn);}
   to {transform: rotate(0turn);}
 }
+@keyframes onClickRocketBounce {
+  from {transform: rotate(0turn);}
+  to {transform: rotate(-0.35turn);}
+}
+@keyframes onClickRocketBounceBack {
+  from {transform: rotate(0turn);}
+  to {transform: rotate(0turn);}
+}
 .center {
     text-align: center;
   }
@@ -67,6 +75,12 @@
   -webkit-text-stroke-width: 1px;
   padding:10px;
 }
+.achievement-cost {
+  color: blue;
+  -webkit-text-stroke:rgb(0, 0, 111)e;
+  -webkit-text-stroke-width: 1px;
+  padding:10px;
+}
 .sound-box {
   display: none;
 }
@@ -90,24 +104,24 @@
   head
   body {
       background-image: url("cheeseMedia/cheeseBg.jpeg");
-      }
-      h1 {
-        stroke: gray;
-        font-weight: 1px;
-      }
-      button {
-        padding:10px;
-        border-width:10px;
-        border-radius:50px;
-      }
-      div {
-        text-align: center;
-      }
-      p {
-        display:inline;
-      }
-      a {
-        color:white;
-        text-decoration:none;
-      }
+  }
+  h1 {
+    stroke: gray;
+    font-weight: 1px;
+  }
+  button {
+    padding:10px;
+    border-width:10px;
+    border-radius:50px;
+  }
+  div {
+    text-align: center;
+  }
+  p {
+    display:inline;
+  }
+  a {
+    color:white;
+    text-decoration:none;
+  }
     

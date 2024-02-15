@@ -23,8 +23,8 @@ let cheeseData = {
     goldCheeseChance: 1,
     specialUpgradeCost: 5,
     specialUpgradeAmount: 0,
-    regularAutoClickerCostOne: 150,
-    goldAutoClickerCostOne: 10,
+    regularAutoClickerCostOne: 650,
+    goldAutoClickerCostOne: 45,
     autoClickerActiveOne: 0,
     autoClickerRefresh: 50,
     critStrike: 0,
@@ -41,6 +41,7 @@ let cheeseData = {
     achievementCheese: 0,
     clickAudio: 'cheeseMedia/audio/cheeseClickedSFX(click).mp3',
     gun: 0,
+    rocket: 0,
 }
 let autoCount = 0
 function dataSave() {
@@ -76,6 +77,11 @@ function dataLoad() {
         document.getElementById("gunAppear").classList.add("sound-box")
         document.getElementById("gunBox").classList.remove("sound-box")
         document.getElementById("gunBox").classList.add("sound-box-visible")
+    }
+    if (cheeseData.rocket === 1) {
+        document.getElementById("rocketAppear").classList.add("sound-box")
+        document.getElementById("rocketBox").classList.remove("sound-box")
+        document.getElementById("rocketBox").classList.add("sound-box-visible")
     }
     drawElementsFromCheeseData()
     loadInterval()
@@ -229,6 +235,10 @@ function specialChanceUpgrade() {
         cheeseData.specialUpgradeCost *= 1.5
         cheeseData.specialUpgradeAmount += 1
     }
+    if (cheeseData.goldCheeseChance >= 100) {
+        cheeseData.goldCheeseChance = 100
+        document.getElementById("specialUpgradeBox").classList.add("sound-box")
+    }
     drawElementsFromCheeseData()
 }
 function pictureAchievement() {
@@ -309,6 +319,15 @@ function gunBounce() {
         imageBounce()
     },75)
 }
+function rocketBounce() {
+    let rocketAudio = new Audio("cheeseMedia/audio/rocket.mp3")
+    rocketAudio.play()
+    document.getElementById("rocketImage").style.animation = "onClickRocketBounce 0.5s 1"
+    setTimeout(function(){
+        document.getElementById("rocketImage").style.animation = "oncClickRocketBounceBack 0.25s 1"
+        imageBounce()
+    },75)
+}
 function soundBox() {
     soundBoxItem.classList.remove("sound-box")
     soundBoxItem.classList.add("sound-box-visible")
@@ -335,14 +354,14 @@ function audioChange(x) {
         "cheeseMedia/audio/cheeseClickedSFX(baby).mp3",
         "cheeseMedia/audio/cheeseClickedSFX(bonk).mp3",
         "cheeseMedia/audio/cheeseClickedSFX(bruh).mp3",
-        "cheeseMedia/audio/cheeseClickedSFX(car-bomb).mp3",
+        "cheeseMedia/audio/cheeseClickedSFX(car).mp3",
         "cheeseMedia/audio/cheeseClickedSFX(click).mp3",
         "cheeseMedia/audio/cheeseClickedSFX(huh).mp3",
         "cheeseMedia/audio/cheeseClickedSFX(nails).mp3",
         "cheeseMedia/audio/cheeseClickedSFX(pacman).mp3",
         "cheeseMedia/audio/cheeseClickedSFX(pipe).mp3",
         "cheeseMedia/audio/cheeseClickedSFX(puffer).mp3",
-        "cheeseMedia/audio/cheeseClickedSFX(rocket).mp3",
+        "cheeseMedia/audio/cheeseClickedSFX(spaceRocket).mp3",
         "cheeseMedia/audio/cheeseClickedSFX(steve).mp3",
         "cheeseMedia/audio/cheeseClickedSFX(usa).mp3",
         "cheeseMedia/audio/cheeseClickedSFX(whisk).mp3",
@@ -351,12 +370,23 @@ function audioChange(x) {
     cheeseData.clickAudio = audioFile[x]
 }
 function gunAppear() {
-    if (cheeseData.goldenCounter >= 5000) {
+    if (cheeseData.achievementCheese >= 1) {
         cheeseData.gun = 1;
-        cheeseData.goldenCounter -= 5000
+        cheeseData.achievementCheese -= 1
         document.getElementById("gunAppear").classList.add("sound-box")
         document.getElementById("gunBox").classList.remove("sound-box")
         document.getElementById("gunBox").classList.add("sound-box-visible")
+    } else {
+        return
+    }
+}
+function rocketAppear() {
+    if (cheeseData.achievementCheese >= 5) {
+        cheeseData.rocket = 1;
+        cheeseData.achievementCheese -= 5
+        document.getElementById("rocketAppear").classList.add("sound-box")
+        document.getElementById("rocketBox").classList.remove("sound-box")
+        document.getElementById("rocketBox").classList.add("sound-box-visible")
     } else {
         return
     }

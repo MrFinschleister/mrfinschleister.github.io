@@ -1,118 +1,198 @@
 <!DOCTYPE html>
-    <html>
-        <head>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-            <style>
-            canvas {
-                border: 1px solid #d3d3d3;
-                background-color: #f1f1f1;
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #spawnedBox {
+            background-color: red;
+        }
+        p {
+            display: inline;
+            color: rgb(224,224,224);
+        }
+        .permaButton {
+            background-color: rgb(161,161,161);
+            color: rgb(224,224,224)
+        }
+        .difButton {
+            background-color: rgb(161,161,161);
+            color: rgb(224,224,224);
+            display: block;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body style="background-color: gray;">
+    <button class="permaButton" onclick="buttonSpawn()">Click for Buttons</button>
+    <button class="permaButton" onclick="checkGone()">Check for Buttons Gone</button>
+    <button class="permaButton" onclick="forceClear()">Reset</button>
+    <div style="display: inline;"><p id="scoreBox">0</p><p>/</p><p id="totalButtons">?</p></div>
+    <div>
+        <button class="difButton" onclick="setDifficulty(9)">Easy</button>
+        <button class="difButton" onclick="setDifficulty(99)">Medium</button>
+        <button class="difButton" onclick="setDifficulty(999)">Hard</button>
+        <button class="difButton" onclick="speed(speed1)">Slow</button>
+        <button class="difButton" onclick="speed(speed2)">Fast</button>
+        <button id="insaneSwitch" class="difButton" onclick="gameTypeSwitch()">INSANE<br>MODE</button>
+    </div>
+    <div id="buttonBox"></div>
+    <script>
+        let box = document.getElementById('buttonBox')
+        let gameStart = false
+        let score = 0
+        let difficulty = 999
+        let insane = false;
+        let buttons = [
+            0,
+        ]
+        let randomFromFunction = 0
+        let speed1 = function() {
+            if (gameStart === true) {
+                return
             }
-            </style>
-        </head>
-        <body onload="startGame()" style="background-image: url('cheeseMedia/cheeseBg.jpeg')">
-            <button onclick="jump()" style="width: 50px; height: 20px;">Move</button>
-            <script>
-                let myGamePiece; 
-                let myObstacles = [];
-                function startGame() {
-                    myGamePiece = new component(30, 30, "red", 10, 350);
-                    myObstacle = new component(25, 250, "green", 600, 0);
-                    myGameArea.start();
+            let tick = 0
+            let random = Math.floor(Math.random()*difficulty)+1
+            document.getElementById('totalButtons').innerHTML = random
+            randomFromFunction = random
+            let buttonInterval = setInterval(function() {
+                let button = document.createElement('button')
+                button.setAttribute('onclick','buttonClicked(), removeButtons('+tick+')')
+                button.setAttribute('id','button'+tick)
+                button.innerHTML = "click"
+                button.style.position = "absolute"
+                button.style.left = Math.floor(Math.random()*90)+5 + "%"
+                button.style.top = Math.floor(Math.random()*85)+8 + "%"
+                button.style.background = "rgb(" + Math.round(Math.random()*255) + "," + Math.round(Math.random()*255) + "," + Math.round(Math.random()*255) + ")"
+                box.appendChild(button)    
+                buttons.push('button'+tick)
+                tick += 1
+                if (tick >= random) {
+                    clearInterval(buttonInterval)
                 }
-                let myGameArea = {
-                    canvas : document.createElement("canvas"),
-                    start : function() {
-                        this.canvas.width = 750;
-                        this.canvas.height = 400;
-                        this.context = this.canvas.getContext("2d");
-                        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-                        this.frameNo = 0;
-                        this.interval = setInterval(updateGameArea, 20);
-                    },
-                    clear : function() {
-                        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-                    },
-                    stop : function() {
-                        clearInterval(this.interval);
-                    }
+            },1)
+            gameStart = true;
+        }
+        let speed2 = function() {
+            if (gameStart === true) {
+                return
+            }
+            let tick = 0
+            let random = Math.floor(Math.random()*difficulty)+1
+            randomFromFunction = random
+            document.getElementById('totalButtons').innerHTML = random
+            for(var i = 0; i < random; i ++) {
+                tick ++
+                let button = document.createElement('button')
+                button.setAttribute('onclick','buttonClicked(), removeButtons('+tick+')')
+                button.setAttribute('id','button'+tick)
+                button.innerHTML = "click"
+                button.style.position = 'absolute'
+                button.style.left = Math.floor(Math.random()*90)+5 + '%'
+                button.style.top = Math.floor(Math.random()*85)+8 + '%'
+                button.style.background = "rgb(" + Math.round(Math.random()*255) + "," + Math.round(Math.random()*255) + "," + Math.round(Math.random()*255) + ")"
+                box.appendChild(button)
+                buttons.push('button'+tick)
+            }
+            gameStart = true;
+        }
+        function setDifficulty(x) {
+            difficulty = x
+        }
+        let buttonSpawn = function() {
+            if (gameStart === true) {
+                return
+            }
+            let tick = 0
+            let random = Math.floor(Math.random()*difficulty)+1
+            randomFromFunction = random
+            document.getElementById('totalButtons').innerHTML = random
+            for(var i = 0; i < random; i ++) {
+                tick ++
+                let button = document.createElement('button')
+                button.setAttribute('onclick','buttonClicked(), removeButtons('+tick+')')
+                button.setAttribute('id','button'+tick)
+                button.innerHTML = "click"
+                button.style.position = 'absolute'
+                button.style.left = Math.floor(Math.random()*90)+5 + '%'
+                button.style.top = Math.floor(Math.random()*85)+8 + '%'
+                button.style.background = "rgb(" + Math.round(Math.random()*255) + "," + Math.round(Math.random()*255) + "," + Math.round(Math.random()*255) + ")"
+                box.appendChild(button)
+                buttons.push('button'+tick)
+            }
+            gameStart = true;
+        }
+        function speed(x) {
+            buttonSpawn = x
+        }
+        function checkGone() {
+            if (gameStart === true && box.innerHTML === "") {
+                alert("Good job lol")
+                box.innerHTML = ""
+                score = 0
+                gameStart = false;
+                document.getElementById('totalButtons').innerHTML = "?"
+                document.getElementById('scoreBox').innerHTML = "0"
+                randomFromFunction = 0
+            } else {
+                alert("You're kinda stupid bruh")
+            }
+        }
+        function buttonClicked() {
+            let clickSound = new Audio('beep.mp3') 
+            clickSound.play()
+            score += 1
+            document.getElementById('scoreBox').innerHTML = score
+            buttonScramble()
+        }
+        function forceClear() {
+            if (gameStart === true) {
+                let response = confirm("Are you sure you want to clear the board?") 
+                if (response) {
+                    box.innerHTML = ""
+                    score = 0
+                    gameStart = false
+                    document.getElementById('totalButtons').innerHTML = "?"
+                    document.getElementById('scoreBox').innerHTML = "0"
+                    randomFromFunction = 0
                 }
-                function component(width, height, color, x, y) {
-                    this.width = width;
-                    this.height = height;
-                    this.speedX = 0;
-                    this.speedY = 0;
-                    this.x = x;
-                    this.y = y;    
-                    this.update = function(){
-                        ctx = myGameArea.context;
-                        ctx.fillStyle = color;
-                        ctx.fillRect(this.x, this.y, this.width, this.height);
-                    }
-                    this.newPos = function() {
-                        this.x += this.speedX;
-                        this.y -= this.speedY;
-                    }
-                    this.crashWith = function(otherobj) {
-                        var myleft = this.x;
-                        var myright = this.x + (this.width);
-                        var mytop = this.y;
-                        var mybottom = this.y + (this.height);
-                        var otherleft = otherobj.x;
-                        var otherright = otherobj.x + (otherobj.width);
-                        var othertop = otherobj.y;
-                        var otherbottom = otherobj.y + (otherobj.height);
-                        var crash = true;
-                        if ((mybottom < othertop) ||
-                        (mytop > otherbottom) ||
-                        (myright < otherleft) ||
-                        (myleft > otherright)) {
-                        crash = false;
-                        }
-                        return crash;
-                    }
+            }
+        }
+        function removeButtons(x) {
+            let el = document.getElementById(buttons[x])
+            el.remove()
+            buttons[x] = 0
+        }
+        function buttonScramble(){
+            if (insane === false) {
+                return
+            }
+            for (var i = 0; i < randomFromFunction; i++) {
+                if (buttons[i] === 0) {
+                    
+                } else {
+                    let el = document.getElementById(buttons[i])
+                    el.style.left = Math.floor(Math.random()*90)+5 + '%'
+                    el.style.top = Math.floor(Math.random()*85)+8 + '%'
+                    el.style.background = "rgb(" + Math.round(Math.random()*255) + "," + Math.round(Math.random()*255) + "," + Math.round(Math.random()*255) + ")"
                 }
-                function everyinterval(n) {
-                    if ((myGameArea.frameNo / n) % 1 == 0) {return true;}
-                        return false;
-                    }
-                    function updateGameArea() {
-                    let x, y;
-                    for (i = 0; i < myObstacles.length; i += 1) {
-                        if (myGamePiece.crashWith(myObstacles[i])) {
-                            myGameArea.stop();
-                            return;
-                        }
-                    }   
-                    myGameArea.clear();
-                    myGameArea.frameNo += 1;
-                    if (myGameArea.frameNo == 1 || everyinterval(150)) {
-                        x = myGameArea.canvas.width;
-                        y = myGameArea.canvas.height - 200
-                        myObstacles.push(new component(10, 200, "green", x, y));
-                    }
-                    for (i = 0; i < myObstacles.length; i += 1) {
-                        myObstacles[i].x += -1;
-                        myObstacles[i].update();
-                    }
-                    myGamePiece.newPos();
-                    myGamePiece.update();
-                    if (myGamePiece.y <= 0) {
-                            myGamePiece.y = 5
-                        }
-                    if (myGamePiece.y <= 200) {
-                        myGamePiece.speedY *= 0.80;
-                    }
-                    if (myGamePiece.speedY <= 5 && myGamePiece.speedY > -12) {
-                        myGamePiece.speedY = -12;
-                    }
-                    if (myGamePiece.y >= 330 && myGamePiece.speedY <= 5) {
-                        myGamePiece.y = 350;
-                        myGamePiece.speedY = 0;
-                    }
-                }
-                function jump() {
-                    myGamePiece.speedY += 30;
-                }
-                </script>
-        </body>
-    </html>
+            }
+        }
+        function gameTypeSwitch() {
+            if (gameStart === true) {
+                return
+            }
+            if (insane === false) {
+                document.getElementById('insaneSwitch').innerHTML = "Regular <br> mode"
+                document.body.style.backgroundColor = "red"
+                insane = true
+            } else {
+                document.getElementById('insaneSwitch').innerHTML = "INSANE <br> MODE"
+                document.body.style.backgroundColor = "gray"
+                insane = false
+            }
+        }
+    </script>
+</body>
+</html>
