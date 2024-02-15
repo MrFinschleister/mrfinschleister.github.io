@@ -281,15 +281,6 @@ function cheesyFunction(x) {
     document.getElementById("cheeseBox").appendChild(div)
     drawElementsFromCheeseData()
 }
-function dropDown(){
-    document.getElementById("dropMenu").innerHTML = 
-    "<div style='color:white; display:inline; width:1000em'><a href='notcheese.html'>| not cheese </a><a href='minecraftCheese.html'>| blocky cheese </a><a href='meltyCheese.html'>| dont click </a><a href='minigame.html'>| Button Game |</a></div>"
-    document.getElementById("dropButton").innerHTML = "<p onclick='dropUp()' style='font-weight:bolder;'> <</p>"
-}
-function dropUp(){
-    document.getElementById("dropMenu").innerHTML = 'Links'
-    document.getElementById("dropButton").innerHTML = "<p onclick='dropDown()' style='font-weight:bolder;'> ></p>"
-}
 function autoIntervalOne() {
     setInterval(function() {
         cheeseData.tickCount += 10
