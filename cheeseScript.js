@@ -5,6 +5,8 @@ let imageFour = "<img id='cheeseImage' class = 'main' onclick='imageBounce()' sr
 let imageFive = "<img id='cheeseImage' class = 'main' onclick='imageBounce()' src='cheeseMedia/cheeseCakeNormal.jpeg' alt='cheese'>"
 let imageSix = "<img id='cheeseImage' class = 'main' onclick='imageBounce()' src='cheeseMedia/cheeseCakeFruit.jpeg' alt='cheese'>"
 let imageSeven = "<img id='cheeseImage' class 'main' onclick='imageBounce()' src='cheeseMedia/cheeseCakeChocolateMarble.jpeg' alt='cheese'>"
+let imageEight = "<img id='cheeseImage' class 'main' onclick='imageBounce()' src='cheeseMedia/camembert.jpeg' alt='cheese'>"
+let imageNine = "<img id='cheeseImage' class 'main' onclick='imageBounce()' src='cheeseMedia/americanCheese.jpeg' alt='cheese'>"
 let autoClickerMax = "MAX"
 let soundBoxItem = document.getElementById('soundBox')
 let upgradesBoxItem = document.getElementById('upgradesBox')
@@ -23,14 +25,14 @@ let cheeseData = {
     goldCheeseChance: 1,
     specialUpgradeCost: 5,
     specialUpgradeAmount: 0,
-    regularAutoClickerCostOne: 650,
-    goldAutoClickerCostOne: 45,
+    regularAutoClickerCostOne: 1500,
+    goldAutoClickerCostOne: 250,
     autoClickerActiveOne: 0,
     autoClickerRefresh: 50,
     critStrike: 0,
     loopAmount: 0,
     autoClickerRate: 0,
-    tickIntervalOne: 101,
+    tickIntervalOne: 100,
     tickCount: 0,
     cheesePerSecond: 0,
     cheesePerSecondAddition: 0,
@@ -72,6 +74,14 @@ function dataLoad() {
         cheeseData.imageSrc = 'cheeseMedia/cheeseCakeFruit.jpeg'
         cheeseData.imageSrc = 'cheeseMedia/cheeseCakeChocolateMarble.jpeg'
         document.getElementById("headerImage").innerHTML = imageSix
+    } else if (cheeseData.cheeseAlert === 6){
+        cheeseData.imageSrc = 'cheeseMedia/cheeseCakeChocolateMarble.jpeg'
+        cheeseData.imageSrc = 'cheeseMedia/camembert.jpeg'
+        document.getElementById("headerImage").innerHTML = imageSeven
+    } else if (cheeseData.cheeseAlert === 7){
+        cheeseData.imageSrc = 'cheeseMedia/camembert.jpeg'
+        cheeseData.imageSrc = 'cheeseMedia/americanCheese.jpeg'
+        document.getElementById("headerImage").innerHTML = imageEight
     }
     if (cheeseData.gun === 1) {
         document.getElementById("gunAppear").classList.add("sound-box")
@@ -143,54 +153,74 @@ function drawElementsFromCheeseData() {
     document.getElementById("cps").innerHTML = cheeseData.cheeseAddition * cheeseData.cheesePerSecondAddition
 }
 function setImages() {
-    if (cheeseData.regularCounter >= 1499 && cheeseData.cheeseAlert === 0) {
+    if (cheeseData.regularCounter >= 24999 && cheeseData.cheeseAlert === 0) {
         cheeseData.imageSrc = 'cheeseMedia/goldCheese.gif'
         cheeseData.goldCheese = 'cheeseMedia/cosmicCheese.jpeg'
         document.getElementById("headerImage").innerHTML = imageTwo
         alert("You got a new cheese - Golden")
         cheeseData.cheeseAlert = 1
         cheeseData.cheeseAddition += 5
-        cheeseData.goldCheeseAddition += 2
+        cheeseData.goldCheeseAddition += 1
         cheeseData.achievementCheese += 1
     }
-    if (cheeseData.regularCounter >= 24999 && cheeseData.cheeseAlert === 1) {
+    if (cheeseData.regularCounter >= 99999 && cheeseData.cheeseAlert === 1) {
         cheeseData.imageSrc = 'cheeseMedia/cosmicCheese.jpeg'
         cheeseData.goldCheese = 'cheeseMedia/smellyCheese.jpeg'
         document.getElementById("headerImage").innerHTML = imageThree
         alert("You got another new cheese - Cosmic")
         cheeseData.cheeseAlert = 2
-        cheeseData.cheeseAddition += 20
-        cheeseData.goldCheeseAddition += 10
+        cheeseData.cheeseAddition += 10
+        cheeseData.goldCheeseAddition += 2
         cheeseData.achievementCheese += 1
     }
-    if (cheeseData.regularCounter >= 99999 && cheeseData.cheeseAlert === 2) {
+    if (cheeseData.regularCounter >= 2499999 && cheeseData.cheeseAlert === 2) {
         cheeseData.imageSrc = 'cheeseMedia/smellyCheese.jpeg'
         cheeseData.goldCheese = 'cheeseMedia/cheeseCakeNormal.jpeg'
         document.getElementById("headerImage").innerHTML = imageFour
         alert("You got another new cheese - Smelly")
         cheeseData.cheeseAlert = 3
-        cheeseData.cheeseAddition += 100
-        cheeseData.goldCheeseAddition += 50
+        cheeseData.cheeseAddition += 50
+        cheeseData.goldCheeseAddition += 10
         cheeseData.achievementCheese += 1
     }
-    if (cheeseData.regularCounter >= 499999 && cheeseData.cheeseAlert === 3) {
+    if (cheeseData.regularCounter >= 9999999 && cheeseData.cheeseAlert === 3) {
         cheeseData.imageSrc = 'cheeseMedia/cheeseCakeNormal.jpeg'
         cheeseData.goldCheese = 'cheeseMedia/cheeseCakeFruit.jpeg'
         document.getElementById("headerImage").innerHTML = imageFive
         alert("You got another new cheese - Cheese Cake")
         cheeseData.cheeseAlert = 4
-        cheeseData.cheeseAddition += 500
-        cheeseData.goldCheeseAddition += 250
+        cheeseData.cheeseAddition += 100
+        cheeseData.goldCheeseAddition += 20
         cheeseData.achievementCheese += 1
     }
-    if (cheeseData.regularCounter >= 2499999 && cheeseData.cheeseAlert === 4) {
+    if (cheeseData.regularCounter >= 249999999 && cheeseData.cheeseAlert === 4) {
         cheeseData.imageSrc = 'cheeseMedia/cheeseCakeFruit.jpeg'
         cheeseData.goldCheese = 'cheeseMedia/cheeseCakeChocolateMarble.jpeg'
         document.getElementById("headerImage").innerHTML = imageSix
         alert("You got another new cheese - Cheese Cake Syrup")
         cheeseData.cheeseAlert = 5
+        cheeseData.cheeseAddition += 500
+        cheeseData.goldCheeseAddition += 100
+        cheeseData.achievementCheese += 1
+    }
+    if (cheeseData.regularCounter >= 999999999 && cheeseData.cheeseAlert === 5) {
+        cheeseData.imageSrc = 'cheeseMedia/cheeseCakeChocolateMarble.jpeg'
+        cheeseData.goldCheese = 'cheeseMedia/camembert.jpeg'
+        document.getElementById("headerImage").innerHTML = imageSeven
+        alert("You got another new cheese - Cheese Cake Chocolate Marble")
+        cheeseData.cheeseAlert = 6
         cheeseData.cheeseAddition += 1000
-        cheeseData.goldCheeseAddition += 500
+        cheeseData.goldCheeseAddition += 200
+        cheeseData.achievementCheese += 1
+    }
+    if (cheeseData.regularCounter >= 999999999 && cheeseData.cheeseAlert === 6) {
+        cheeseData.imageSrc = 'cheeseMedia/camembert.jpeg'
+        cheeseData.goldCheese = 'cheeseMedia/americanCheese.jpeg'
+        document.getElementById("headerImage").innerHTML = imageEight
+        alert("You got another new cheese - Camembert")
+        cheeseData.cheeseAlert = 7
+        cheeseData.cheeseAddition += 1500
+        cheeseData.goldCheeseAddition += 300
         cheeseData.achievementCheese += 1
     }
     drawElementsFromCheeseData()
@@ -214,7 +244,7 @@ function chanceForExtra() {
     drawElementsFromCheeseData()
 }
 function autoCheese() {
-    if (cheeseData.goldenCounter >= cheeseData.goldAutoClickerCostOne && cheeseData.regularCounter >= cheeseData.regularAutoClickerCostOne && cheeseData.tickIntervalOne != 1) {
+    if (cheeseData.goldenCounter >= cheeseData.goldAutoClickerCostOne && cheeseData.regularCounter >= cheeseData.regularAutoClickerCostOne && cheeseData.tickIntervalOne != 0) {
         cheeseData.regularCounter -= Math.round(cheeseData.regularAutoClickerCostOne)
         cheeseData.goldenCounter -= Math.round(cheeseData.goldAutoClickerCostOne)
         cheeseData.regularAutoClickerCostOne *= 1.2
