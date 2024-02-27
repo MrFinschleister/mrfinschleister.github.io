@@ -96,6 +96,53 @@ function dataLoad() {
     drawElementsFromCheeseData()
     loadInterval()
 }
+function dataClear() {
+    if (confirm("Are you sure you want to clear your save file? This action cannot be reverted.") === true) {
+        cheeseData = {
+            regularCounter: 0,
+            goldenCounter: 0,
+            goldCheese: 'cheeseMedia/goldCheese.gif',
+            imageSrc: 'cheeseMedia/cheese.jpeg',
+            cheeseAddition: 1,
+            cheeseUpgradeAmount: 0,
+            cheeseUpgradeCost: 50,
+            cheeseAlert: 0,
+            extraUpgradeCost: 5,
+            extraUpgradeMultiplier: 0,
+            goldCheeseAddition: 1,
+            goldCheeseChance: 1,
+            specialUpgradeCost: 5,
+            specialUpgradeAmount: 0,
+            regularAutoClickerCostOne: 1500,
+            goldAutoClickerCostOne: 250,
+            autoClickerActiveOne: 0,
+            autoClickerRefresh: 50,
+            critStrike: 0,
+            loopAmount: 0,
+            autoClickerRate: 0,
+            tickIntervalOne: 100,
+            tickCount: 0,
+            cheesePerSecond: 0,
+            cheesePerSecondAddition: 0,
+            cpsStart: 0,
+            cpsEnd: 0,
+            cpsCheck: 0,
+            cheeseImageAchievement: 0,
+            achievementCheese: 0,
+            clickAudio: 'cheeseMedia/audio/cheeseClickedSFX(click).mp3',
+            gun: 0,
+            rocket: 0,
+        }
+        document.getElementById("headerImage").innerHTML = imageOne
+        document.getElementById("gunAppear").classList.remove("sound-box")
+        document.getElementById("gunBox").classList.add("sound-box")
+        document.getElementById("gunBox").classList.remove("sound-box-visible")
+        document.getElementById("rocketAppear").classList.remove("sound-box")
+        document.getElementById("rocketBox").classList.add("sound-box")
+        document.getElementById("rocketBox").classList.remove("sound-box-visible")
+        drawElementsFromCheeseData()
+    }
+}
 function loadInterval() {
     if (autoCount < cheeseData.autoClickerRate) {
         autoIntervalOne()
