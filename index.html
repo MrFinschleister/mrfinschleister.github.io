@@ -8,12 +8,14 @@
             </title>
             <link rel="stylesheet" href="cheeseStyle.css" type="text/css">
         </head>
-        <body style="background-image: url('cheeseMedia/cheeseBg.jpeg')" onload="dataLoad()" onbeforeunload="dataSave()">
+        <body style="background-image: url('cheeseMedia/cheeseBg.jpeg')" onload="load(1)" onbeforeunload="save()">
             <a href="minigame.html" style="color: black;">Button Game</a>
             <div style="display: inline; text-align: left; padding-top: 15px;">
-                <button onclick="dataSave()" style="display:inline; border-radius: 10px; border-width: 2px; width: 75px; height: 30px; font-size: 11px;">Save</button>
-                <button onclick="dataLoad()" style="display:inline; border-radius: 10px; border-width: 2px; width: 75px; height: 30px; font-size: 11px;">Load</button>
+                <button onclick="save()" style="display:inline; border-radius: 10px; border-width: 2px; width: 75px; height: 30px; font-size: 11px;">Save</button>
+                <button onclick="load(0)" style="display:inline; border-radius: 10px; border-width: 2px; width: 75px; height: 30px; font-size: 11px;">Load</button>
                 <button onclick="dataClear()" style="display:inline; border-radius: 10px; border-width: 2px; width: 75px; height: 30px; font-size: 11px;">RESET</button>
+                <button onclick="clearImages()" style="display:inline; border-radius: 10px; border-width: 2px; width: fit-content; height: 30px; font-size: 11px;">Clear Cheese Images</button>
+
             </div>
             <div style="position: absolute; display: block; text-align: right;">
                 <button id="soundBoxToggle" onclick="soundBox()" style="margin-right: 300px; background-color: rgba(255, 255, 255, 0); border: none;"><img src="cheeseMedia/sound.jpeg" alt="Sound Icon"></button>
@@ -26,10 +28,10 @@
                     <div id="headerImage" onclick="cheesyFunction(1)" style="height: 280px; width: 280px; display: inline-block; margin-top: auto; margin-bottom: auto;"><img id="cheeseImage" onclick="imageBounce()" class="main" src="cheeseMedia/cheese.jpeg" alt="cheese" style="height: 256; width: 256;"></div>
                     <div id="gunBox" onclick="cheesyFunction(2)" class="sound-box" style="height: 280px; width: 280px; margin-top: 4rem; position: absolute; margin-left: 2rem;"><img id="gunImage" alt="gun" src="cheeseMedia/gun.jpeg" class="main" onclick="gunBounce()"></div>
                  </div>
-                <wrap id="upgradesBox" class="upgrades-box" style="position: fixed; right: 10px; top: 10px; height: 225px; width: fit-content; background-color:rgb(249, 208, 72); opacity: 0.9; border-left:dimgray; border-left-style: groove; overflow-y: scroll;">
+                <wrap id="upgradesBox" class="upgrades-box" style="position: fixed; right: 10px; top: 0px; height: 225px; width: fit-content; background-color:rgb(249, 208, 72); opacity: 0.9; border-left:dimgray; border-left-style: groove; overflow-y: scroll;">
                     <div style="text-align:center">
                         <div><p id="cheeseUpgradeDisplay" style="color:white; padding:10px">0</p><button class="button-sidebar" onclick="cheeseUpgrade()">Click Up<br><p id="upgradeCost" class="regular-cost">50</p></button></div>
-                        <div><p id="extraUpgradeAmountDisplay" style="color:white; padding:10px">0</p><button class="button-sidebar" onclick="chanceForExtra()">Crit Up<br><p id="extraUpgradeCostDisplay" class="gold-cost">5</p></button></div>
+                        <div id="extraUpgradeBox"><p id="extraUpgradeAmountDisplay" style="color:white; padding:10px">0</p><button class="button-sidebar" onclick="chanceForExtra()">Crit Up<br><p id="extraUpgradeCostDisplay" class="gold-cost">5</p></button></div>
                         <div id="specialUpgradeBox"><p id="specialUpgradeDisplay" style="color:white; padding:10px">0</p><button class="button-sidebar" onclick="specialChanceUpgrade()">Special Cheese Chance Up<br><p id="specialCostDisplay" class="gold-cost">5</p></button></div>
                         <hr>
                         <div><p id="autoClickerRate" style="color:white; padding:10px;">0</p><button class="button-sidebar" onclick="autoCheese()" style="text-align: center">Auto Clicker<br><p id="regularAutoClickerDisplay" class="regular-cost">1500</p><br><p id="goldAutoClickerDisplay" class="gold-cost">250</p></button></div>
@@ -62,9 +64,9 @@
                     <button onclick="audioChange(14)">Whisk</button>
                     <button onclick="audioChange(15)">Yoda</button>
                 </wrap>
-                <div><p id="chanceForSpecialCheese">1</p><p> chance for </p><p id="goldCheesePerClick">1</p><p> special cheese per click.</p></div>
                 <div><p id="cheesePerClick">1</p><p> regular cheese per click.</p></div>
-                <div><p id="critChance">0</p><p> chance for crit &#40;100 times regular cheese&#41;</p></div>
+                <div><p id="chanceForSpecialCheese">1/100</p><p> chance for </p><p id="goldCheesePerClick">1</p><p> special cheese per click.</p></div>
+                <div><p id="critChance">0/100</p><p> chance for crit &#40;100 times regular cheese&#41;</p></div>
                 <script src="cheeseScript.js"></script>
                 <div style="padding-top:20px">
                     <p>Regular Cheese:</p>

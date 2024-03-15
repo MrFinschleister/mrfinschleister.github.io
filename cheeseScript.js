@@ -20,7 +20,7 @@ let cheeseData = {
     cheeseUpgradeCost: 50,
     cheeseAlert: 0,
     extraUpgradeCost: 5,
-    extraUpgradeMultiplier: 0,
+    extraChance: 0,
     goldCheeseAddition: 1,
     goldCheeseChance: 1,
     specialUpgradeCost: 5,
@@ -45,15 +45,13 @@ let cheeseData = {
     gun: 0,
     rocket: 0,
 }
-let autoCount = 0
-function dataSave() {
+function save() {
     localStorage.setItem('cheeseSave', JSON.stringify(cheeseData))
+    localStorage.setItem('cheeseBoxImages', JSON.stringify(document.getElementById("cheeseBox").innerHTML))
 }
-function dataSaveClipboard() {
-    prompt("Copy to clipboard",JSON.stringify(cheeseData))
-}
-function dataLoad() {
+function load(x) {
     cheeseData = JSON.parse(localStorage.getItem('cheeseSave'))
+    document.getElementById('cheeseBox').innerHTML = JSON.parse(localStorage.getItem('cheeseBoxImages'))
     if (cheeseData.cheeseAlert === 1) {
         cheeseData.imageSrc = 'cheeseMedia/goldCheese.gif'
         cheeseData.goldCheese = 'cheeseMedia/cosmicCheese.jpeg'
@@ -68,19 +66,19 @@ function dataLoad() {
         document.getElementById("headerImage").innerHTML = imageFour
     } else if (cheeseData.cheeseAlert === 4){
         cheeseData.imageSrc = 'cheeseMedia/cheeseCakeNormal.jpeg'
-        cheeseData.imageSrc = 'cheeseMedia/cheeseCakeFruit.jpeg'
+        cheeseData.goldCheese = 'cheeseMedia/cheeseCakeFruit.jpeg'
         document.getElementById("headerImage").innerHTML = imageFive
     } else if (cheeseData.cheeseAlert === 5){
         cheeseData.imageSrc = 'cheeseMedia/cheeseCakeFruit.jpeg'
-        cheeseData.imageSrc = 'cheeseMedia/cheeseCakeChocolateMarble.jpeg'
+        cheeseData.goldCheese = 'cheeseMedia/cheeseCakeChocolateMarble.jpeg'
         document.getElementById("headerImage").innerHTML = imageSix
     } else if (cheeseData.cheeseAlert === 6){
         cheeseData.imageSrc = 'cheeseMedia/cheeseCakeChocolateMarble.jpeg'
-        cheeseData.imageSrc = 'cheeseMedia/camembert.jpeg'
+        cheeseData.goldCheese = 'cheeseMedia/camembert.jpeg'
         document.getElementById("headerImage").innerHTML = imageSeven
     } else if (cheeseData.cheeseAlert === 7){
         cheeseData.imageSrc = 'cheeseMedia/camembert.jpeg'
-        cheeseData.imageSrc = 'cheeseMedia/americanCheese.jpeg'
+        cheeseData.goldCheese = 'cheeseMedia/americanCheese.jpeg'
         document.getElementById("headerImage").innerHTML = imageEight
     }
     if (cheeseData.gun === 1) {
@@ -108,7 +106,7 @@ function dataClear() {
             cheeseUpgradeCost: 50,
             cheeseAlert: 0,
             extraUpgradeCost: 5,
-            extraUpgradeMultiplier: 0,
+            extraChance: 0,
             goldCheeseAddition: 1,
             goldCheeseChance: 1,
             specialUpgradeCost: 5,
@@ -140,64 +138,56 @@ function dataClear() {
         document.getElementById("rocketAppear").classList.remove("sound-box")
         document.getElementById("rocketBox").classList.add("sound-box")
         document.getElementById("rocketBox").classList.remove("sound-box-visible")
+        document.getElementById("specialUpgradeBox").classList.remove("sound-box")
+        document.getElementById("extraUpgradeBox").classList.remove("sound-box")
         drawElementsFromCheeseData()
+        document.getElementById("cheeseBox").innerHTML = ""
+        localStorage.setItem('cheeseSave', JSON.stringify(cheeseData))
+        localStorage.setItem('cheeseBoxImages',JSON.stringify(document.getElementById("cheeseBox").innerHTML))
     }
+}
+function clearImages() {
+    document.getElementById("cheeseBox").innerHTML = ""
+    localStorage.setItem('cheeseBoxImages'),JSON.stringify(document.getElementById("cheeseBox").innerHTML)
 }
 function loadInterval() {
-    if (autoCount < cheeseData.autoClickerRate) {
+    let rate = cheeseData.autoClickerRate
+    for(var x = 1; x <= rate; x++) {
         autoIntervalOne()
-        autoCount += 1
-        loadInterval()
     }
-}
-function dataLoadClipboard() {
-    cheeseData = JSON.parse(prompt("Insert Save Data"))
-    if (cheeseData.cheeseAlert === 1) {
-        cheeseData.imageSrc = 'cheeseMedia/goldCheese.gif'
-        cheeseData.goldCheese = 'cheeseMedia/cosmicCheese.jpeg'
-        document.getElementById("headerImage").innerHTML = imageTwo
-    } else if (cheeseData.cheeseAlert === 2) {
-        cheeseData.imageSrc = 'cheeseMedia/cosmicCheese.jpeg'
-        cheeseData.goldCheese = 'cheeseMedia/smellyCheese.jpeg'
-        document.getElementById("headerImage").innerHTML = imageThree
-    } else if (cheeseData.cheeseAlert === 3) {
-        cheeseData.iageSrc = 'cheeseMedia/smellyCheese.jpeg'
-        cheeseData.goldCheese = 'cheeseMedia/cheeseCakeNormal.jpeg'
-        document.getElementById("headerImage").innerHTML = imageFour
-    } else if (cheeseData.cheeseAlert === 4){
-        cheeseData.imageSrc = 'cheeseMedia/cheeseCakeNormal.jpeg'
-        cheeseData.imageSrc = 'cheeseMedia/cheeseCakeFruit.jpeg'
-        document.getElementById("headerImage").innerHTML = imageFive
-    } else if (cheeseData.cheeseAlert === 5){
-        cheeseData.imageSrc = 'cheeseMedia/cheeseCakeFruit.jpeg'
-        cheeseData.imageSrc = 'cheeseMedia/cheeseCakeChocolateMarble.jpeg'
-        document.getElementById("headerImage").innerHTML = imageSix
-    }
-    drawElementsFromCheeseData()
 }
 function testCheese() {
     cheeseData.regularCounter += 100000000000000000
-    cheeseData.goldenCounter += 5000000000
+    cheeseData.goldenCounter += 100000000000000000
     setImages()
     drawElementsFromCheeseData()
 }
 function drawElementsFromCheeseData() {
+    cheeseData.regularCounter = Math.floor(cheeseData.regularCounter)
+    cheeseData.goldenCounter = Math.floor(cheeseData.goldenCounter)
     document.getElementById("stupid").innerHTML = cheeseData.regularCounter
     document.getElementById("golden").innerHTML = cheeseData.goldenCounter
     document.getElementById("cheesePerClick").innerHTML = cheeseData.cheeseAddition
     document.getElementById("goldCheesePerClick").innerHTML = cheeseData.goldCheeseAddition
     document.getElementById("autoClickerRate").innerHTML = cheeseData.autoClickerRate
-    document.getElementById("regularAutoClickerDisplay").innerHTML = Math.round(cheeseData.regularAutoClickerCostOne)
-    document.getElementById("goldAutoClickerDisplay").innerHTML = Math.round(cheeseData.goldAutoClickerCostOne)
+    document.getElementById("regularAutoClickerDisplay").innerHTML = Math.floor(cheeseData.regularAutoClickerCostOne)
+    document.getElementById("goldAutoClickerDisplay").innerHTML = Math.floor(cheeseData.goldAutoClickerCostOne)
     document.getElementById("cheeseUpgradeDisplay").innerHTML = cheeseData.cheeseUpgradeAmount
-    document.getElementById("upgradeCost").innerHTML = Math.round(cheeseData.cheeseUpgradeCost)
-    document.getElementById("extraUpgradeCostDisplay").innerHTML = Math.round(cheeseData.extraUpgradeCost)
-    document.getElementById("extraUpgradeAmountDisplay").innerHTML = cheeseData.extraUpgradeMultiplier
+    document.getElementById("upgradeCost").innerHTML = Math.floor(cheeseData.cheeseUpgradeCost)
+    document.getElementById("extraUpgradeCostDisplay").innerHTML = Math.floor(cheeseData.extraUpgradeCost)
+    document.getElementById("extraUpgradeAmountDisplay").innerHTML = cheeseData.extraChance
+    document.getElementById("critChance").innerHTML = "1/" + (100 - cheeseData.extraChance)
     document.getElementById("specialUpgradeDisplay").innerHTML = cheeseData.specialUpgradeAmount
-    document.getElementById("specialCostDisplay").innerHTML = Math.round(cheeseData.specialUpgradeCost)
-    document.getElementById("chanceForSpecialCheese").innerHTML = cheeseData.goldCheeseChance
+    document.getElementById("specialCostDisplay").innerHTML = Math.floor(cheeseData.specialUpgradeCost)
+    document.getElementById("chanceForSpecialCheese").innerHTML = "1/" + (101 - cheeseData.goldCheeseChance)
     document.getElementById("achievmentCheese").innerHTML = cheeseData.achievementCheese
-    document.getElementById("cps").innerHTML = cheeseData.cheeseAddition * cheeseData.cheesePerSecondAddition
+    document.getElementById("cps").innerHTML = Math.floor(0.125*(cheeseData.cheeseAddition * cheeseData.cheesePerSecondAddition))
+    if (cheeseData.goldCheeseChance >= 101) {
+        document.getElementById("specialUpgradeBox").classList.add("sound-box")
+    }
+    if (cheeseData.extraChance >= 99) {
+        document.getElementById("extraUpgradeBox").classList.add("sound-box")
+    }
 }
 function setImages() {
     if (cheeseData.regularCounter >= 24999 && cheeseData.cheeseAlert === 0) {
@@ -276,26 +266,26 @@ function cheeseUpgrade() {
     if (cheeseData.regularCounter >= cheeseData.cheeseUpgradeCost) {
         cheeseData.cheeseAddition += 1
         cheeseData.goldCheeseAddition += 1
-        cheeseData.regularCounter -= Math.round(cheeseData.cheeseUpgradeCost)
-        cheeseData.cheeseUpgradeCost *= 1.2
+        cheeseData.regularCounter -= Math.floor(cheeseData.cheeseUpgradeCost)
+        cheeseData.cheeseUpgradeCost = Math.floor(cheeseData.cheeseUpgradeCost*1.2)
         cheeseData.cheeseUpgradeAmount += 1
     }
     drawElementsFromCheeseData()
 }
 function chanceForExtra() {
     if (cheeseData.goldenCounter >= cheeseData.extraUpgradeCost) {
-        cheeseData.goldenCounter -= Math.round(cheeseData.extraUpgradeCost)
-        cheeseData.extraUpgradeMultiplier += 1
+        cheeseData.goldenCounter -= Math.floor(cheeseData.extraUpgradeCost)
+        cheeseData.extraChance += 1
         cheeseData.extraUpgradeCost *= 1.5
     }
     drawElementsFromCheeseData()
 }
 function autoCheese() {
     if (cheeseData.goldenCounter >= cheeseData.goldAutoClickerCostOne && cheeseData.regularCounter >= cheeseData.regularAutoClickerCostOne && cheeseData.tickIntervalOne != 0) {
-        cheeseData.regularCounter -= Math.round(cheeseData.regularAutoClickerCostOne)
-        cheeseData.goldenCounter -= Math.round(cheeseData.goldAutoClickerCostOne)
-        cheeseData.regularAutoClickerCostOne *= 1.2
-        cheeseData.goldAutoClickerCostOne *= 1.2
+        cheeseData.regularCounter -= Math.floor(cheeseData.regularAutoClickerCostOne)
+        cheeseData.goldenCounter -= Math.floor(cheeseData.goldAutoClickerCostOne)
+        cheeseData.regularAutoClickerCostOne = Math.floor(cheeseData.regularAutoClickerCostOne * 1.2)
+        cheeseData.goldAutoClickerCostOne = Math.floor(cheeseData.goldAutoClickerCostOne * 1.2)
         cheeseData.autoClickerActiveOne = 1
         cheeseData.autoClickerRate += 1
         cheeseData.tickIntervalOne -= 1
@@ -307,14 +297,10 @@ function autoCheese() {
 }
 function specialChanceUpgrade() {
     if (cheeseData.goldenCounter >= cheeseData.specialUpgradeCost) {
-        cheeseData.goldenCounter -= Math.round(cheeseData.specialUpgradeCost)
+        cheeseData.goldenCounter -= Math.floor(cheeseData.specialUpgradeCost)
         cheeseData.goldCheeseChance += 1
-        cheeseData.specialUpgradeCost *= 1.5
+        cheeseData.specialUpgradeCost = Math.floor(cheeseData.specialUpgradeCost * 1.5)
         cheeseData.specialUpgradeAmount += 1
-    }
-    if (cheeseData.goldCheeseChance >= 100) {
-        cheeseData.goldCheeseChance = 100
-        document.getElementById("specialUpgradeBox").classList.add("sound-box")
     }
     drawElementsFromCheeseData()
 }
@@ -329,9 +315,9 @@ function pictureAchievement() {
 function cheesyFunction(x) {
     const div = document.createElement('wrap')
     const cheese = document.createElement('img')
-    let math = Math.floor(Math.random() * 100 - cheeseData.goldCheeseChance)
-    let extraMath = Math.floor(Math.random() * 100 - cheeseData.extraUpgradeMultiplier)
-    if (extraMath === 1 && cheeseData.extraUpgradeMultiplier >= 1) {
+    let math = Math.floor(Math.random() * 101 - cheeseData.goldCheeseChance)
+    let extraMath = Math.floor(Math.random() * 101 - cheeseData.extraChance)
+    if (extraMath === 1 && cheeseData.extraChance >= 1) {
         cheeseData.cheeseAddition *= 100
         cheeseData.critStrike = 1
     }
@@ -357,12 +343,12 @@ function cheesyFunction(x) {
     div.appendChild(cheese)
     document.getElementById("cheeseBox").appendChild(div)
     drawElementsFromCheeseData()
-}
+} 
 function autoIntervalOne() {
     setInterval(function() {
         cheeseData.tickCount += 10
         if (cheeseData.autoClickerActiveOne === 1 && cheeseData.tickCount % 500 === 0){
-            cheesyFunction(1)
+            cheesyFunction(0.25)
         }
         if (cheeseData.tickCount % 1000 === 0 && cheeseData.cpsCheck === 0) {
             cheeseData.cpsStart = cheeseData.regularCounter
@@ -422,7 +408,7 @@ function audioChange(x) {
         "cheeseMedia/audio/cheeseClickedSFX(baby).mp3",
         "cheeseMedia/audio/cheeseClickedSFX(bonk).mp3",
         "cheeseMedia/audio/cheeseClickedSFX(bruh).mp3",
-        "cheeseMedia/audio/cheeseClickedSFX(car).mp3",
+        "cheeseMedia/audio/cheeseClickedSFX(car-bomb).mp3",
         "cheeseMedia/audio/cheeseClickedSFX(click).mp3",
         "cheeseMedia/audio/cheeseClickedSFX(huh).mp3",
         "cheeseMedia/audio/cheeseClickedSFX(nails).mp3",
@@ -459,3 +445,15 @@ function rocketAppear() {
         return
     }
 }
+function globalTimer() {
+    setInterval(function(){
+        let random = Math.floor(Math.random()*1000000000000)
+        if (random == 1) {
+            cheeseData.regularCounter = Math.floor(cheeseData.regularCounter / 2)
+            cheeseData.goldenCounter = Math.floor(cheeseData.goldenCounter / 2)
+            alert("Get fucked")
+            drawElementsFromCheeseData()
+        }
+    },1000)
+}
+globalTimer()
