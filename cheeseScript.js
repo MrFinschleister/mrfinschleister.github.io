@@ -50,6 +50,9 @@ function save() {
     localStorage.setItem('cheeseBoxImages', JSON.stringify(document.getElementById("cheeseBox").innerHTML))
 }
 function load(x) {
+    if(x == 0) {
+        window.location.reload()
+    }
     cheeseData = JSON.parse(localStorage.getItem('cheeseSave'))
     document.getElementById('cheeseBox').innerHTML = JSON.parse(localStorage.getItem('cheeseBoxImages'))
     if (cheeseData.cheeseAlert === 1) {
