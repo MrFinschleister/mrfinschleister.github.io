@@ -1,0 +1,113 @@
+@keyframes clickBounce {
+    from {width: 60vh; height: 60vh;}
+    to {width: 55vh; height: 55vh}
+}
+@keyframes clickBounceBack {
+    from {width: 55vh; height: 55vh;}
+    to {width: 60vh; height: 60vh;}
+}
+@keyframes gunOneShot {
+from {transform: rotate(0turn);}
+to {transform: rotate(0.35turn);}
+}
+@keyframes gunOneBack {
+from {transform: rotate(0turn);}
+to {transform: rotate(0turn);}
+}
+@keyframes gunTwoShot {
+from {transform: rotate(0turn);}
+to {transform: rotate(-0.35turn);}
+}
+@keyframes gunTwoBack {
+from {transform: rotate(0turn);}
+to {transform: rotate(0turn);}
+}
+img {
+    height: 10vw;
+    cursor: pointer;
+}
+body {
+    background-image: url('cheeseMedia/cheeseBg.jpeg');
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    font-size: 1.25vw;
+}
+p {
+    display: inline;
+}
+#infoBox button {
+    padding-left: 2vw;
+    text-align: left;
+    position: absolute;
+    right: 0.5vw;
+    width: 14vw;
+    height: 3vw;
+    border-radius: 10px;
+    border: 2px black solid;
+    background-image: url('cheeseMedia/cheeseBg.jpeg');
+}
+#infoBox div {
+    height: 8vh;
+    width: 14vw;
+    margin-left: 0.75vw;
+    margin-top: 0.5vw;
+    margin-bottom: 0.5vw;
+}
+#infoBox .buttonParagraph {
+    height: 2vh;
+    margin-top: 2vh;
+    text-align: center;
+    width: 4vw;
+    position: absolute;
+}
+#infoBox button .buttonParagraph {
+    padding-left: 0.5vw;
+    text-align: left;
+    margin-top: auto;
+}
+.regularCheese {
+    -webkit-text-stroke: gray;
+}
+.specialCheese {
+    -webkit-text-stroke: rgb(172, 147, 0);
+}
+.achievementCheese {
+    -webkit-text-stroke: blue;
+}
+.regularCheese, .specialCheese, .achievementCheese {
+    color: black;
+    font-weight: bolder;
+    -webkit-text-stroke-width: 1px;
+}
+hr {
+    border: 1px black solid;
+}
+.optionButtons {
+    width: 5vw;
+    height: 1.5vw;
+    margin-top: 0.5vw;
+    margin-left: 0.25vw;
+    margin-right: 0.25vw;
+    border-radius: 10px;
+    border: 1px black solid;
+    background-color:rgba(249, 208, 72, 0.9);
+}
+#soundBox {
+    text-align: center;
+}
+#soundBox button {
+    width: 8vw;
+    height: 2vw;
+    border-radius: 10px;
+    border: 1px black solid;
+    background-image: url('cheeseMedia/cheeseBg.jpeg');
+    margin: 0.5vw;
+}
+#imageBox img {
+    cursor: auto;
+}
+button {
+    font-size: 1vw;
+}

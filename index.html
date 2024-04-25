@@ -1,84 +1,77 @@
 <!DOCTYPE html>
-    <html lang = "en">
-        <head>
-        <meta charset = "utf-8">
-            <link rel="shortcut icon" href="cheeseMedia/cheeseLogo.png">
-            <title>
-                cheese
-            </title>
-            <link rel="stylesheet" href="cheeseStyle.css" type="text/css">
-        </head>
-        <body style="background-image: url('cheeseMedia/cheeseBg.jpeg')" onload="load(1)" onbeforeunload="save()">
-            <a href="minigame.html" style="color: black;">Button Game</a>
-            <div style="display: inline; text-align: left; padding-top: 15px;">
-                <button onclick="save()" style="display:inline; border-radius: 10px; border-width: 2px; width: 75px; height: 30px; font-size: 11px;">Save</button>
-                <button onclick="load(0)" style="display:inline; border-radius: 10px; border-width: 2px; width: 75px; height: 30px; font-size: 11px;">Load</button>
-                <button onclick="dataClear()" style="display:inline; border-radius: 10px; border-width: 2px; width: 75px; height: 30px; font-size: 11px;">RESET</button>
-                <button onclick="clearImages()" style="display:inline; border-radius: 10px; border-width: 2px; width: fit-content; height: 30px; font-size: 11px;">Clear Cheese Images</button>
-
-            </div>
-            <div style="position: absolute; display: block; text-align: right;">
-                <button id="soundBoxToggle" onclick="soundBox()" style="margin-right: 300px; background-color: rgba(255, 255, 255, 0); border: none;"><img src="cheeseMedia/sound.jpeg" alt="Sound Icon"></button>
-            </div>
-            <div class="center">
-                <h1 style = "color:rgb(162, 105, 0)">cheese</h1>
-                <div><p id="cps">0</p><p> cheese per second.</p></div>
-                <div style="margin-left: auto; margin-right: auto; height: 300px;"> 
-                    <div id="rocketBox" onclick="cheesyFunction(4)" class="sound-box" style="height: 280px; width: 280px; margin-top: 4rem; position: absolute; margin-left: -18rem"><img id="rocketImage" alt="rocket" src="cheeseMedia/rocket.jpeg" class="main" onclick="rocketBounce()"></div>
-                    <div id="headerImage" onclick="cheesyFunction(1)" style="height: 280px; width: 280px; display: inline-block; margin-top: auto; margin-bottom: auto;"><img id="cheeseImage" onclick="imageBounce()" class="main" src="cheeseMedia/cheese.jpeg" alt="cheese" style="height: 256; width: 256;"></div>
-                    <div id="gunBox" onclick="cheesyFunction(2)" class="sound-box" style="height: 280px; width: 280px; margin-top: 4rem; position: absolute; margin-left: 2rem;"><img id="gunImage" alt="gun" src="cheeseMedia/gun.jpeg" class="main" onclick="gunBounce()"></div>
-                 </div>
-                <wrap id="upgradesBox" class="upgrades-box" style="position: fixed; right: 10px; top: 0px; height: 225px; width: fit-content; background-color:rgb(249, 208, 72); opacity: 0.9; border-left:dimgray; border-left-style: groove; overflow-y: scroll;">
-                    <div style="text-align:center">
-                        <div><p id="cheeseUpgradeDisplay" style="color:white; padding:10px">0</p><button class="button-sidebar" onclick="cheeseUpgrade()">Click Up<br><p id="upgradeCost" class="regular-cost">50</p></button></div>
-                        <div id="extraUpgradeBox"><p id="extraUpgradeAmountDisplay" style="color:white; padding:10px">0</p><button class="button-sidebar" onclick="chanceForExtra()">Crit Up<br><p id="extraUpgradeCostDisplay" class="gold-cost">5</p></button></div>
-                        <div id="specialUpgradeBox"><p id="specialUpgradeDisplay" style="color:white; padding:10px">0</p><button class="button-sidebar" onclick="specialChanceUpgrade()">Special Cheese Chance Up<br><p id="specialCostDisplay" class="gold-cost">5</p></button></div>
-                        <hr>
-                        <div><p id="autoClickerRate" style="color:white; padding:10px;">0</p><button class="button-sidebar" onclick="autoCheese()" style="text-align: center">Auto Clicker<br><p id="regularAutoClickerDisplay" class="regular-cost">1500</p><br><p id="goldAutoClickerDisplay" class="gold-cost">250</p></button></div>
-                        <div id="gunAppear"><p style="color:white; padding: 10px;">&#128511;</p><button class="button-sidebar" onclick="gunAppear()" style="text-align: center">Gun<br><p class="achievement-cost">1</p></button></div>
-                        <div id="rocketAppear"><p style="color:white; padding: 10px;">&#128511;</p><button class="button-sidebar" onclick="rocketAppear()" style="text-align: center">Rocket<br><p class="achievement-cost">5</p></button></div>
-                    </div>
-                </wrap>
-                <wrap id="soundBox" class="sound-box" style="position: fixed; right: 10px; top: 10px; height: 225px; width: 213px; background-color:rgb(249, 208, 72); border-left:dimgray; border-left-style: groove; overflow-y: scroll;">
-                    <button onclick="audioChange(0)">Amogus</button>
-                    <button onclick="audioChange(1)">Baby</button>
-                    <br>
-                    <button onclick="audioChange(2)">Bonk</button>
-                    <button onclick="audioChange(3)">Bruh</button>
-                    <br>
-                    <button onclick="audioChange(4)">Car</button>
-                    <button onclick="audioChange(5)">Click</button>
-                    <br>
-                    <button onclick="audioChange(6)">Huh</button>
-                    <button onclick="audioChange(7)">Nails</button>
-                    <br>
-                    <button onclick="audioChange(8)">Pacman</button>
-                    <button onclick="audioChange(9)">Pipe</button>
-                    <br>
-                    <button onclick="audioChange(10)">Puffer</button>
-                    <button onclick="audioChange(11)">Rocket</button>
-                    <br>
-                    <button onclick="audioChange(12)">Steve</button>
-                    <button onclick="audioChange(13)">USA</button>
-                    <br>
-                    <button onclick="audioChange(14)">Whisk</button>
-                    <button onclick="audioChange(15)">Yoda</button>
-                </wrap>
-                <div><p id="cheesePerClick">1</p><p> regular cheese per click.</p></div>
-                <div><p id="chanceForSpecialCheese">1/100</p><p> chance for </p><p id="goldCheesePerClick">1</p><p> special cheese per click.</p></div>
-                <div><p id="critChance">0/100</p><p> chance for crit &#40;100 times regular cheese&#41;</p></div>
-                <script src="cheeseScript.js"></script>
-                <div style="padding-top:20px">
-                    <p>Regular Cheese:</p>
-                    <p id="stupid">0</p>
-                    <br><p>Special Cheese:</p>
-                    <p id ="golden">0</p>
-                    <br><p> Achievement Cheese:</p>
-                    <p id="achievmentCheese">0</p>
-                </div>
-                <!--<div><button onclick="testCheese()" style="text-align:center">Test</button></div>-->
-                <div id="cheeseBox"></div>
-                <!--<div id="console" style="position:fixed; top: 15em; left: 2em; background-color:rgba(0, 0, 0, 0.8); height: 30%; width: 30%; overflow-x:hidden; overflow-y:scroll; color:white; text-align:left; padding:1em"></div>-->
-            </div>
-        </body>
-    </html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="cheesyClicker.css" type="text/css">
+</head>
+<body onload="load(false)" onbeforeunload="save()" style="display: none;">
+    <div id="soundBox" style="position: absolute; right: 0px; top: 0px; width: 20.6vw; height: 100vh; border-left: 0.2vw black solid; background-color: white; overflow-y: scroll; overflow-x: hidden; z-index: 1; background-color:rgba(249, 208, 72, 0.9);">
+        <img src="cheeseMedia/sound.jpeg" alt="Sound Button" onclick="infoBoxToggle()" style="position: absolute; right: 0; top: 0; margin-top: 1vw; margin-right: 1vw; height: 5vh;">
+        <h2 style="text-align: center;">Click Sounds</h2>
+        <button onclick="audioChange(0)">Amogus</button>
+        <button onclick="audioChange(1)">Baby</button>
+        <br>
+        <button onclick="audioChange(2)">Bonk</button>
+        <button onclick="audioChange(3)">Bruh</button>
+        <br>
+        <button onclick="audioChange(4)">Car</button>
+        <button onclick="audioChange(5)">Click</button>
+        <br>
+        <button onclick="audioChange(6)">Huh</button>
+        <button onclick="audioChange(7)">Nails</button>
+        <br>
+        <button onclick="audioChange(8)">Pacman</button>
+        <button onclick="audioChange(9)">Pipe</button>
+        <br>
+        <button onclick="audioChange(10)">Puffer</button>
+        <button onclick="audioChange(11)">Rocket</button>
+        <br>
+        <button onclick="audioChange(12)">Steve</button>
+        <button onclick="audioChange(13)">USA</button>
+        <br>
+        <button onclick="audioChange(14)">Whisk</button>
+        <button onclick="audioChange(15)">Yoda</button>
+    </div>
+    <div id="infoBox" style="position: absolute; right: 0px; top: 0px; width: 20.6vw; height: 100vh; border-left: 0.2vw black solid; background-color: white; overflow-y: scroll; overflow-x: hidden; z-index: 1; background-color:rgb(249, 208, 72); display: inline;">
+        <img src="cheeseMedia/sound.jpeg" alt="Sound Button" onclick="infoBoxToggle()" style="position: absolute; right: 0; top: 0; margin-top: 1vw; margin-right: 1vw; height: 5vh;">
+        <div style="height: fit-content; text-align: center; width: 100%; margin-left: 0vw;">
+            <p>Cheese Per Second: </p><br><p id="cheesePerSecond" style="font-weight: bolder;">0</p>
+            <br>
+            <p>Regular Cheese: </p><br><p id="regularCheese" class="regularCheese">0</p>
+            <br>
+            <p>Special Cheese: </p><br><p id="specialCheese" class="specialCheese">0</p>
+            <br>
+            <p>Achievement Cheese: </p><br><p id="achievementCheese" class="achievementCheese">0</p>
+        </div>
+        <hr style="width: 10vw;">
+        <div style="height: fit-content; text-align: center; width: 100%; margin-left: 0vw;"><p> Regular Cheese Per Click</p><br><p id="regularAddition">1</p><br><p> Special Cheese Per Click</p><br><p id="specialAddition">1</p></div>
+        <hr style="margin-top: 3vh; margin-bottom: 3vh;">
+        <div><p id="regularUpgradeAmount" class="buttonParagraph">0</p><button onclick="regularUpgrade()">Click: <p id="regularUpgradeCost" class="regularCheese buttonParagraph">50</p></button></div>
+        <div><p id="specialUpgradeAmount" class="buttonParagraph">0</p><button onclick="specialUpgrade()">Special Chance: <p id="specialUpgradeCost" class="specialCheese buttonParagraph">10</p></button></div>
+        <div><p id="autoClickerOneAmount" class="buttonParagraph">0</p><button onclick="autoClickerOne()">Auto Clicker: <p id="autoClickerOneCostRegular" class="regularCheese buttonParagraph" style="margin-top: -1vh;">1500</p><p id="autoClickerOneCostSpecial" class="specialCheese buttonParagraph" style="margin-top: 1vh;">50</p></button></div>
+        <hr style="width: 10vw;">
+        <div><p id="gunUpgradeOne" class="buttonParagraph">LOCKED</p><button onclick="gunUpgradeOne()">Gun: <p id="gunUpgradeOneCost" class="achievementCheese buttonParagraph">1</p></button></div>
+        <div><p id="gunUpgradeTwo" class="buttonParagraph">LOCKED</p><button onclick="gunUpgradeTwo()">Gun 2: <p id="gunUpgradeTwoCost" class="achievementCheese buttonParagraph">5</p></button></div>
+    </div>
+    <div style="position: absolute; left: 0px; top: 0px; width: 20.6vw; height: 100vh; border-right: 0.2vw black solid; background-color: rgba(82, 67, 0, 0.75); overflow-y: scroll; overflow-x: hidden; z-index: 1;">
+        <div style="text-align: center;">
+            <button onclick="load(true)" class="optionButtons">Load</button>
+            <button onclick="reset()" class="optionButtons">Reset</button>
+            <button onclick="clearImages()" class="optionButtons">Clear</button>
+        </div>  
+        <div id="imageBox" style="width: 20v.6w; margin-left: auto;"></div>
+    </div>
+    <div style="text-align: center; margin-top: 8vh; height: 100vh;">
+        <button onclick="test()" style="position: absolute; left: 21vw; top: 0;">Test</button>
+        <h1>Cheese</h1>
+        <img src="cheeseMedia/rocket.jpeg" alt="gun two" id="gunImageTwo" onclick="cheesyFunction(true, 'Two', 4)" style="width: 30vh; margin-top: 15vh; position: absolute; margin-left: -60vh; display: none;">
+        <img src="cheeseMedia/cheese.jpeg" alt="cheese" id="cheeseImage" onclick="cheesyFunction(true, false, 1)" style="width: 60vh; height: 60vh; position: absolute; margin-left: auto; margin-right: auto; left: 0; right: 0; z-index: 1;">
+        <img src="cheeseMedia/gun.jpeg" alt="gun one" id="gunImageOne" onclick="cheesyFunction(true, 'One', 2)" style="width: 30vh; margin-top: 15vh; position: absolute; margin-left: 30vh; display: none;">
+    </div>
+    <div style="text-align: center; margin-top: 38vh;" id="info">
+    </div>
+    <script src="cheesyClicker.js"></script>
+</body>
+</html>
