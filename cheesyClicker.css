@@ -33,6 +33,7 @@ body {
     overflow-x: hidden;
     overflow-y: hidden;
     font-size: 1.25vw;
+    touch-action: manipulation;
 }
 p {
     display: inline;
