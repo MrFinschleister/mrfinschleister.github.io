@@ -89,6 +89,7 @@ let dataBackup = {
     imageAchievement: false,
     inAdmin: false,
 }
+let loadingSave = false
 let tick = 0
 let soundBoxStatus = true
 let minigameBoxStatus = true
@@ -247,17 +248,22 @@ function imageAchievement() {
     drawElements()
 }
 function save() {
-    localStorage.setItem('data',JSON.stringify(data))
-    localStorage.setItem('imageBoxContents',JSON.stringify(document.getElementById('imageBox').innerHTML))
+    if (!loadingSave) {
+        localStorage.setItem('data',JSON.stringify(data))
+        localStorage.setItem('imageBoxContents',JSON.stringify(document.getElementById('imageBox').innerHTML))
+    }
 }
 function load(x) {
     if (x) {
         if (currentLocation[currentLocation.length-1] === 'a') {
             currentLocation = currentLocation.slice(0,-2)
         }
+        loadingSave = true
         window.location.replace(currentLocation)
     } else {
-        data = JSON.parse(localStorage.getItem('data'))
+        if (JSON.parse(localStorage.getItem('data')) != null) {
+            data = JSON.parse(localStorage.getItem('data'))
+        }
         document.getElementById('imageBox').innerHTML = JSON.parse(localStorage.getItem('imageBoxContents'))
         for (var x = 0; x < data.autoClickerOneAmount; x++) {
             autoClickerOneStart(x)
