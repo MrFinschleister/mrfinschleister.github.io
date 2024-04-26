@@ -28,6 +28,7 @@ let images = [
     "cheeseMedia/cheeseCakeChocolateMarble.jpeg",
     "cheeseMedia/camembert.jpeg",
     "cheeseMedia/americanCheese.jpeg",
+    "cheeseMedia/freakyCheese.jpeg",
 ]
 let levelMessages = [
     "Golden",
@@ -37,7 +38,8 @@ let levelMessages = [
     "Cheese Cake Fruit",
     "Cheese Cake Chocolate Marble",
     "Camembert",
-    "American"
+    "American",
+    "Freaky",
 ]
 let data = {
     regularCheese: 0,
@@ -88,7 +90,8 @@ let dataBackup = {
     inAdmin: false,
 }
 let tick = 0
-let infoBoxStatus = true
+let soundBoxStatus = true
+let minigameBoxStatus = true
 function setImages(checkAlert) {
     while (data.regularCheese >= data.levelFlagCost && data.levelFlag < images.length-2) {
         if (checkAlert) {
@@ -295,12 +298,21 @@ function test() {
 function audioChange(selectedAudio) {
     data.clickAudioIndex = selectedAudio
 }
-function infoBoxToggle() {
-    if (infoBoxStatus) {
-        infoBoxStatus = false
-        document.getElementById('infoBox').style.display = "none"
+function soundBoxToggle() {
+    if (soundBoxStatus) {
+        soundBoxStatus = false
+        document.getElementById('soundBox').style.display = "inline"
     } else {
-        infoBoxStatus = true
-        document.getElementById('infoBox').style.display = "inline"
+        soundBoxStatus = true
+        document.getElementById('soundBox').style.display = "none"
+    }
+}
+function minigameBoxToggle() {
+    if (minigameBoxStatus) {
+        minigameBoxStatus = false
+        document.getElementById('minigameBox').style.display = "inline"
+    } else {
+        minigameBoxStatus = true
+        document.getElementById('minigameBox').style.display = "none"
     }
 }

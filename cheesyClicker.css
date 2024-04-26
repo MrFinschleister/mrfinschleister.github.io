@@ -94,7 +94,7 @@ hr {
     border: 1px black solid;
     background-color:rgba(249, 208, 72, 0.9);
 }
-#soundBox {
+#soundBox, #minigameBox {
     text-align: center;
 }
 #soundBox button {
