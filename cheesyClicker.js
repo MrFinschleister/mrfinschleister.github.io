@@ -29,6 +29,9 @@ let images = [
     "cheeseMedia/camembert.jpeg",
     "cheeseMedia/americanCheese.jpeg",
     "cheeseMedia/freakyCheese.jpeg",
+    "cheeseMedia/cottageCheese.jpeg",
+    "cheeseMedia/blueCheese.jpeg",
+    "cheeseMedia/notCheese.jpeg",
 ]
 let levelMessages = [
     "Golden",
@@ -40,6 +43,9 @@ let levelMessages = [
     "Camembert",
     "American",
     "Freaky",
+    "Cottage Cheese",
+    "Blue Cheese",
+    "Not Cheese",
 ]
 let data = {
     regularCheese: 0,
