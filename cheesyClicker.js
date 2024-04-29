@@ -63,7 +63,7 @@ let data = {
     autoClickerOneAmount: 0,
     cheesePerSecond: 0,
     imageAchievement: false,
-    inAdmin: false,
+    testMode: false,
 }
 let dataBackup = {
     regularCheese: 0,
@@ -87,7 +87,7 @@ let dataBackup = {
     autoClickerOneAmount: 0,
     cheesePerSecond: 0,
     imageAchievement: false,
-    inAdmin: false,
+    testMode: false,
 }
 let loadingSave = false
 let tick = 0
@@ -99,10 +99,10 @@ function setImages(checkAlert) {
             alert('You got a new cheese! (' + levelMessages[data.levelFlag] + ')')
         }
         data.achievementCheese += 1
-        data.levelFlagCost *= 5
+        data.levelFlagCost *= 10
         data.levelFlag += 1
-        data.regularAddition += 4 * 5**data.levelFlag
-        data.specialAddition += 2 * 5**data.levelFlag
+        data.regularAddition += 4 * 5**(data.levelFlag-1)
+        data.specialAddition += 2 * 5**(data.levelFlag-1)
     }
     if (data.gunUpgradeOne) {
         document.getElementById('gunImageOne').style.display = "inline"
@@ -268,6 +268,7 @@ function load(x) {
         for (var x = 0; x < data.autoClickerOneAmount; x++) {
             autoClickerOneStart(x)
         }
+        window.addEventListener("keydown", keypresses)
     }
     document.body.style.display = "inline"
     drawElements()
@@ -275,11 +276,24 @@ function load(x) {
 }
 function reset() {
     if (confirm("Are you sure you want to reset?")) {
+        if (data.testMode) {
+            if (confirm("Keep test mode?")) {
+                dataBackup.testMode = data.testMode
+                data = dataBackup
+                document.getElementById('imageBox').innerHTML = ""
+                window.location.reload()
+            } else {
+                if (currentLocation[currentLocation.length-1] === 'a') {
+                    currentLocation = currentLocation.slice(0,-2)
+                }
+            }
+        } else {
+            if (currentLocation[currentLocation.length-1] === 'a') {
+                currentLocation = currentLocation.slice(0,-2)
+            }
+        }
         data = dataBackup
         document.getElementById('imageBox').innerHTML = ""
-        if (currentLocation[currentLocation.length-1] === 'a') {
-            currentLocation = currentLocation.slice(0,-2)
-        }
         window.location.replace(currentLocation)
     }
 }
@@ -320,5 +334,12 @@ function minigameBoxToggle() {
     } else {
         minigameBoxStatus = true
         document.getElementById('minigameBox').style.display = "none"
+    }
+}
+function keypresses(e) {
+    if (e.key === "Backspace" && data.testMode) {
+        for (var x = 0; x < 1000; x++) {
+            cheesyFunction(false, false, 1)
+        }
     }
 }
