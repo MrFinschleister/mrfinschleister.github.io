@@ -56,6 +56,8 @@ let data = {
     specialCheeseChance: 0,
     specialUpgradeCost: 10,
     specialUpgradeAmount: 0,
+    critUpgradeCost: 50,
+    critUpgradeAmount: 0,
     gunUpgradeOne: false,
     gunUpgradeTwo: false,
     autoClickerOneCostRegular: 1500,
@@ -80,6 +82,8 @@ let dataBackup = {
     specialCheeseChance: 0,
     specialUpgradeCost: 10,
     specialUpgradeAmount: 0,
+    critUpgradeCost: 50,
+    critUpgradeAmount: 0,
     gunUpgradeOne: false,
     gunUpgradeTwo: false,
     autoClickerOneCostRegular: 1500,
@@ -93,6 +97,49 @@ let loadingSave = false
 let tick = 0
 let soundBoxStatus = true
 let minigameBoxStatus = true
+function cheesyFunction(animate, gunElement, multiplier) {
+    let random = Math.floor(Math.random()*(100-data.specialCheeseChance))
+    let critRandom = Math.floor(Math.random()*(100-data.critUpgradeAmount))
+    const el = document.createElement('img')
+    if (gunElement != false) {
+        document.getElementById('gunImage' + gunElement).style.animation = "gun" + gunElement + "Shot 0.25s 1"
+        if (gunElement === "One") {
+            let shotAudio = new Audio('cheeseMedia/audio/gun.mp3')
+            shotAudio.play()
+        } else if (gunElement === "Two") {
+            let shotAudio = new Audio('cheeseMedia/audio/rocket.mp3')
+            shotAudio.play()
+        }
+        setTimeout(function(){
+            document.getElementById('gunImage' + gunElement).style.animation = "gun" + gunElement + "Back 0.25s 1"
+        },50)
+    }
+    if (random === 0) {
+        data.specialCheese += data.specialAddition*multiplier
+        el.src = images[data.levelFlag+1]
+    } else {
+        el.src = images[data.levelFlag]
+    }
+    if (!data.imageAchievement && document.getElementById('imageBox').innerHTML === "") {
+        el.setAttribute('onclick','imageAchievement()')
+    }
+    if (animate) {
+        let onClickAudio = new Audio(clickSounds[data.clickAudioIndex])
+        onClickAudio.play()
+        document.getElementById('imageBox').appendChild(el)
+        image.style.animation = "clickBounce 0.25s 1"
+        setTimeout(function(){
+            image.style.animation = "clickBounceBack 0.25s 1"
+        },50)
+    }
+    if (critRandom === 0) {
+        data.regularCheese += data.regularAddition*multiplier*100
+    } else {
+        data.regularCheese += data.regularAddition*multiplier
+    }
+    setImages(true) 
+    drawElements()
+}
 function setImages(checkAlert) {
     while (data.regularCheese >= data.levelFlagCost && data.levelFlag < images.length-2) {
         if (checkAlert) {
@@ -116,44 +163,6 @@ function setImages(checkAlert) {
     }
     image.src = images[data.levelFlag]
 }
-function cheesyFunction(animate, gunElement, multiplier) {
-    let random = Math.floor(Math.random()*(100-data.specialCheeseChance))
-    const el = document.createElement('img')
-    if (gunElement != false) {
-        document.getElementById('gunImage' + gunElement).style.animation = "gun" + gunElement + "Shot 0.25s 1"
-        if (gunElement === "One") {
-            let shotAudio = new Audio('cheeseMedia/audio/gun.mp3')
-            shotAudio.play()
-        } else if (gunElement === "Two") {
-            let shotAudio = new Audio('cheeseMedia/audio/rocket.mp3')
-            shotAudio.play()
-        }
-        setTimeout(function(){
-            document.getElementById('gunImage' + gunElement).style.animation = "gun" + gunElement + "Back 0.25s 1"
-        },50)
-    }
-    if (random === 1) {
-        data.specialCheese += data.specialAddition*multiplier
-        el.src = images[data.levelFlag+1]
-    } else {
-        el.src = images[data.levelFlag]
-    }
-    if (!data.imageAchievement && document.getElementById('imageBox').innerHTML === "") {
-        el.setAttribute('onclick','imageAchievement()')
-    }
-    if (animate) {
-        let onClickAudio = new Audio(clickSounds[data.clickAudioIndex])
-        onClickAudio.play()
-        document.getElementById('imageBox').appendChild(el)
-        image.style.animation = "clickBounce 0.25s 1"
-        setTimeout(function(){
-            image.style.animation = "clickBounceBack 0.25s 1"
-        },50)
-    }
-    data.regularCheese += data.regularAddition*multiplier
-    setImages(true) 
-    drawElements()
-}
 function drawElements() {
     document.getElementById('regularCheese').innerHTML = data.regularCheese
     document.getElementById('specialCheese').innerHTML = data.specialCheese
@@ -165,6 +174,8 @@ function drawElements() {
     document.getElementById('regularUpgradeCost').innerHTML = data.regularUpgradeCost
     document.getElementById('specialUpgradeAmount').innerHTML = data.specialUpgradeAmount
     document.getElementById('specialUpgradeCost').innerHTML = data.specialUpgradeCost
+    document.getElementById('critUpgradeAmount').innerHTML = data.critUpgradeAmount
+    document.getElementById('critUpgradeCost').innerHTML = data.critUpgradeCost
     document.getElementById('autoClickerOneCostRegular').innerHTML = data.autoClickerOneCostRegular
     document.getElementById('autoClickerOneCostSpecial').innerHTML = data.autoClickerOneCostSpecial
     document.getElementById('autoClickerOneAmount').innerHTML = data.autoClickerOneAmount
@@ -184,6 +195,14 @@ function specialUpgrade() {
         data.specialCheese -= data.specialUpgradeCost
         data.specialUpgradeAmount += 1
         data.specialUpgradeCost = Math.floor(data.specialUpgradeCost * 1.25)
+    }
+    drawElements()
+}
+function critUpgrade() {
+    if (data.specialCheese >= data.critUpgradeCost) {
+        data.specialCheese -= data.critUpgradeCost
+        data.critUpgradeAmount += 1
+        data.critUpgradeCost = Math.floor(data.critUpgradeCost * 1.25)
     }
     drawElements()
 }
