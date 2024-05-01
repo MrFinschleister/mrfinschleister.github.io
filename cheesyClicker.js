@@ -170,20 +170,20 @@ function setImages(checkAlert) {
     image.src = images[data.levelFlag]
 }
 function drawElements() {
-    document.getElementById('regularCheese').innerHTML = data.regularCheese
-    document.getElementById('specialCheese').innerHTML = data.specialCheese
-    document.getElementById('achievementCheese').innerHTML = data.achievementCheese
-    document.getElementById('regularAddition').innerHTML = data.regularAddition
-    document.getElementById('specialAddition').innerHTML = data.specialAddition
-    document.getElementById('cheesePerSecond').innerHTML = data.cheesePerSecond
+    document.getElementById('regularCheese').innerHTML = convert(data.regularCheese)
+    document.getElementById('specialCheese').innerHTML = convert(data.specialCheese)
+    document.getElementById('achievementCheese').innerHTML = convert(data.achievementCheese)
+    document.getElementById('regularAddition').innerHTML = convert(data.regularAddition)
+    document.getElementById('specialAddition').innerHTML = convert(data.specialAddition)
+    document.getElementById('cheesePerSecond').innerHTML = convert(data.cheesePerSecond)
     document.getElementById('regularUpgradeAmount').innerHTML = data.regularUpgradeAmount
-    document.getElementById('regularUpgradeCost').innerHTML = data.regularUpgradeCost
+    document.getElementById('regularUpgradeCost').innerHTML = convert(data.regularUpgradeCost)
     document.getElementById('specialUpgradeAmount').innerHTML = data.specialUpgradeAmount
-    document.getElementById('specialUpgradeCost').innerHTML = data.specialUpgradeCost
+    document.getElementById('specialUpgradeCost').innerHTML = convert(data.specialUpgradeCost)
     document.getElementById('critUpgradeAmount').innerHTML = data.critUpgradeAmount
-    document.getElementById('critUpgradeCost').innerHTML = data.critUpgradeCost
-    document.getElementById('autoClickerOneCostRegular').innerHTML = data.autoClickerOneCostRegular
-    document.getElementById('autoClickerOneCostSpecial').innerHTML = data.autoClickerOneCostSpecial
+    document.getElementById('critUpgradeCost').innerHTML = convert(data.critUpgradeCost)
+    document.getElementById('autoClickerOneCostRegular').innerHTML = convert(data.autoClickerOneCostRegular)
+    document.getElementById('autoClickerOneCostSpecial').innerHTML = convert(data.autoClickerOneCostSpecial)
     document.getElementById('autoClickerOneAmount').innerHTML = data.autoClickerOneAmount
 }
 function regularUpgrade() {
@@ -367,4 +367,16 @@ function keypresses(e) {
             cheesyFunction(false, false, 1)
         }
     }
+}
+function convert(inputNumber) {
+    let suffixes = ["", "M", "B", "T", "q", "Q", "s", "S", "O", "N", "D",]
+    let currentSuffix = 0
+    while (inputNumber >= 1000000) {
+        inputNumber /= 1000
+        currentSuffix += 1
+    }
+    if (currentSuffix > 0) {
+        inputNumber /= 1000
+    }
+    return(Math.round(inputNumber*100)/100 + suffixes[currentSuffix])
 }
