@@ -72,6 +72,8 @@ let data = {
     cheesePerSecond: 0,
     imageAchievement: false,
     testMode: false,
+    time: 0,
+    printImages: false,
 }
 let dataBackup = {
     regularCheese: 0,
@@ -98,6 +100,8 @@ let dataBackup = {
     cheesePerSecond: 0,
     imageAchievement: false,
     testMode: false,
+    time: 0,
+    printImages: true,
 }
 let loadingSave = false
 let tick = 0
@@ -132,7 +136,9 @@ function cheesyFunction(animate, gunElement, multiplier) {
     if (animate) {
         let onClickAudio = new Audio(clickSounds[data.clickAudioIndex])
         onClickAudio.play()
-        document.getElementById('imageBox').appendChild(el)
+        if (data.printImages) {
+            document.getElementById('imageBox').appendChild(el)
+        }
         image.style.animation = "clickBounce 0.25s 1"
         setTimeout(function(){
             image.style.animation = "clickBounceBack 0.25s 1"
@@ -185,6 +191,7 @@ function drawElements() {
     document.getElementById('autoClickerOneCostRegular').innerHTML = convert(data.autoClickerOneCostRegular)
     document.getElementById('autoClickerOneCostSpecial').innerHTML = convert(data.autoClickerOneCostSpecial)
     document.getElementById('autoClickerOneAmount').innerHTML = data.autoClickerOneAmount
+    document.getElementById('cheeseLevel').innerHTML = convert(data.levelFlagCost)
 }
 function regularUpgrade() {
     if (data.regularCheese >= data.regularUpgradeCost) {
@@ -274,6 +281,10 @@ function imageAchievement() {
 }
 function save() {
     if (!loadingSave) {
+        if (data.cheesePerSecond > 0) {
+            let currTime = new Date()
+            data.time = currTime.getTime()/1000
+        }
         localStorage.setItem('data',JSON.stringify(data))
         localStorage.setItem('imageBoxContents',JSON.stringify(document.getElementById('imageBox').innerHTML))
     }
@@ -293,11 +304,42 @@ function load(x) {
         for (var x = 0; x < data.autoClickerOneAmount; x++) {
             autoClickerOneStart(x)
         }
+        if (data.cheesePerSecond > 0) {
+            let currTime = new Date()
+            let seconds = currTime.getTime()/1000
+            let diff = Math.round((seconds - data.time)*100)/100
+            let displayedDiff = diff
+            if (displayedDiff >= 60) {
+                let timeStamps = ["", " minutes", " hours", " days"]
+                let currTimeStamp = 0
+                if (displayedDiff >= 60) {
+                    displayedDiff /= 60
+                    currTimeStamp += 1
+                }
+                if (displayedDiff >= 60) {
+                    displayedDiff /= 60
+                    currTimeStamp += 1
+                }
+                if (displayedDiff >= 24) {
+                    displayedDiff /= 24
+                    currTimeStamp += 1
+                }
+                let el = document.createElement('div')
+                let header = document.createElement('h3')
+                el.setAttribute('id', 'whileAwayPopup')
+                header.innerHTML = "You earned " + convert(diff*data.cheesePerSecond) + " regular cheese while you were away for " + Math.round(displayedDiff*100)/100 + timeStamps[currTimeStamp] + "."
+                el.appendChild(header)
+                document.body.appendChild(el)
+                setTimeout(function() {
+                    el.remove()
+                }, 2000)
+            }
+            data.regularCheese += diff * data.cheesePerSecond
+        }
         window.addEventListener("keydown", keypresses)
+        drawElements()
+        setImages(true)
     }
-    document.body.style.display = "inline"
-    drawElements()
-    setImages(true)
 }
 function reset() {
     if (confirm("Are you sure you want to reset?")) {
@@ -361,6 +403,9 @@ function minigameBoxToggle() {
         document.getElementById('minigameBox').style.display = "none"
     }
 }
+function printImagesToggle() {
+    data.printImages = !data.printImages
+}
 function keypresses(e) {
     if (e.key === "Backspace" && data.testMode) {
         for (var x = 0; x < 1000; x++) {
@@ -378,5 +423,5 @@ function convert(inputNumber) {
     if (currentSuffix > 0) {
         inputNumber /= 1000
     }
-    return(Math.round(inputNumber*100)/100 + suffixes[currentSuffix])
+    return(Math.floor(inputNumber*100)/100 + suffixes[currentSuffix])
 }

@@ -11,7 +11,7 @@
     <div id="minigameBox" style="position: absolute; right: 0px; top: 0px; width: 20.6vw; height: 100vh; border-left: 0.2vw black solid; background-color: white; overflow-y: scroll; overflow-x: hidden; z-index: 2; background-color:rgba(249, 208, 72, 0.9); display: none;">
         <h2 style="text-align: center;">Minigames</h2>
         <img src="cheeseMedia/minigameSprite.jpeg" alt="Minigame Button" onclick="minigameBoxToggle()" style="position: absolute; right: 0; top: 0; margin-top: 4vw; margin-right: 1vw; height: 3vw;">
-        <p>Probably Coming Soon</p>
+        <p>Nuh uh</p>
     </div>
     <div id="soundBox" style="position: absolute; right: 0px; top: 0px; width: 20.6vw; height: 100vh; border-left: 0.2vw black solid; background-color: white; overflow-y: scroll; overflow-x: hidden; z-index: 2; background-color:rgba(249, 208, 72, 0.9); display: none;">
         <img src="cheeseMedia/sound.jpeg" alt="Sound Button" onclick="soundBoxToggle()" style="position: absolute; right: 0; top: 0; margin-top: 1vw; margin-right: 1vw; height: 2vw; padding: 0.5vw;">        
@@ -68,12 +68,14 @@
             <button onclick="load(true)" class="optionButtons">Load</button>
             <button onclick="reset()" class="optionButtons">Reset</button>
             <button onclick="clearImages()" class="optionButtons">Clear</button>
+            <button onclick="printImagesToggle()" class="optionButtons" style="width: 10vw;">Toggle Images</button>
         </div>  
         <div id="imageBox" style="width: 20v.6w; margin-left: auto;"></div>
     </div>
     <div style="text-align: center; margin-top: 8vh; height: 100vh;">
         <button onclick="test()" style="position: absolute; left: 21vw; top: 0;">Test</button>
         <h1>Cheese</h1>
+        <h3 style="display: inline;">Next Cheese at </h3><h3 id="cheeseLevel" style="display: inline;">1500</h3>
         <img src="cheeseMedia/rocket.jpeg" alt="gun two" id="gunImageTwo" onclick="cheesyFunction(true, 'Two', 4)" style="width: 12.5vw; height: 12.5vw; margin-top: 15vh; position: absolute; margin-left: -27.5vw; display: none;">
         <img src="cheeseMedia/cheese.jpeg" alt="cheese" id="cheeseImage" onclick="cheesyFunction(true, false, 1)" style="width: 25vw; height: 25vw; position: absolute; margin-left: auto; margin-right: auto; left: 0; right: 0; z-index: 1;">
         <img src="cheeseMedia/gun.jpeg" alt="gun one" id="gunImageOne" onclick="cheesyFunction(true, 'One', 2)" style="width: 12.5vw; height: 12.5vw; margin-top: 15vh; position: absolute; margin-left: 15vw; display: none;">
