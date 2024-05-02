@@ -298,7 +298,7 @@ function load(x) {
         window.location.replace(currentLocation)
     } else {
         if (JSON.parse(localStorage.getItem('data')) != null) {
-            data = JSON.parse(localStorage.getItem('data'))
+            Object.assign(data, JSON.parse(localStorage.getItem('data')))
         }
         document.getElementById('imageBox').innerHTML = JSON.parse(localStorage.getItem('imageBoxContents'))
         for (var x = 0; x < data.autoClickerOneAmount; x++) {
