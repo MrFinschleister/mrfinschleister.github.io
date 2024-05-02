@@ -73,7 +73,7 @@ let data = {
     imageAchievement: false,
     testMode: false,
     time: 0,
-    printImages: false,
+    printImages: true,
 }
 let dataBackup = {
     regularCheese: 0,
